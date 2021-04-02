@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieDao {
+
     @Query("SELECT * FROM movie_table")
     fun getMovies(): Flow<List<MovieData>>
 
