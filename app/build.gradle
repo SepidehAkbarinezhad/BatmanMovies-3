@@ -117,6 +117,12 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.11.0"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.11.0"
 
+    // Glide
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+
+    //progressbar
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
 
 }
 

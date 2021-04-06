@@ -13,8 +13,8 @@ import kotlinx.android.parcel.Parcelize
 data class MovieData(
     @Json(name = "Title") val title: String,
     @Json(name = "Year") val year: String,
-    @PrimaryKey
-    @Json(name = "imdbID") val imdbID: String,
+    @Json(name = "Poster") val poster: String,
     @Json(name = "Type") val type: String,
-    @Json(name = "Poster") val poster: String
+    @PrimaryKey
+    @Json(name = "imdbID") val imdbID: String
 ) : Parcelable

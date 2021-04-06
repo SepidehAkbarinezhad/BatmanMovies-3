@@ -4,11 +4,9 @@ import android.util.Log
 import com.example.batmanmovies.data.data.MovieDao
 import com.example.batmanmovies.data.entity.MovieData
 import com.example.batmanmovies.domain.repository.MovieCache
-import com.example.batmanmovies.domain.repository.MovieRepository
 import com.example.batmanmovies.presentation.entity.MovieEntity
 import com.example.batmanmovies.presentation.mapper.toEntity
-import com.example.batmanmovies.presentation.utill.Constant.TAG
-import kotlinx.coroutines.*
+import com.example.batmanmovies.utill.Constant.TAG
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 

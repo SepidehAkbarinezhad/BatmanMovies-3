@@ -1,4 +1,4 @@
-package com.example.batmanmovies.presentation.utill
+package com.example.batmanmovies.utill
 
 sealed class Resource<T>(
     val data: T? = null,

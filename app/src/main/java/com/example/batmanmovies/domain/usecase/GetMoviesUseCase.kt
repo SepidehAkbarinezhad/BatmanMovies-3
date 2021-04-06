@@ -4,7 +4,7 @@ import com.example.batmanmovies.domain.repository.MovieRepository
 import com.example.batmanmovies.presentation.di.MovieRepoImpl
 import com.example.batmanmovies.presentation.entity.MovieEntity
 import com.example.batmanmovies.domain.shared.BaseFlowUseCase
-import com.example.batmanmovies.presentation.utill.Resource
+import com.example.batmanmovies.utill.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

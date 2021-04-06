@@ -4,6 +4,6 @@ data class MovieEntity(
     val title: String,
     val year: String,
     val poster: String,
-    val imdbID: String,
-    val type: String
+    val type: String,
+    val imdbID: String
 )

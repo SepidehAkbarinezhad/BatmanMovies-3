@@ -1,11 +1,15 @@
 package com.example.batmanmovies.presentation.di
 
 import android.app.Application
-import androidx.datastore.preferences.protobuf.Api
 import androidx.room.Room
 import com.example.batmanmovies.data.data.MovieDatabase
+import com.example.batmanmovies.data.dataSource.MovieRepositoryImpl
+import com.example.batmanmovies.data.dataSource.movie.LocalMovieDataSource
+import com.example.batmanmovies.data.dataSource.movie.RemoteMovieDataSource
 import com.example.batmanmovies.data.remote.ApiService
-import com.example.batmanmovies.presentation.utill.Constant.BASE_URL
+import com.example.batmanmovies.domain.repository.MovieRepository
+import com.example.batmanmovies.utill.Constant.BASE_URL
+import com.example.batmanmovies.utill.Constant.DATABASE_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +28,7 @@ object AppModule {
     @Singleton
     fun provideDatabase(
         app: Application
-    ) = Room.databaseBuilder(app, MovieDatabase::class.java, "task_database")
+    ) = Room.databaseBuilder(app, MovieDatabase::class.java, DATABASE_NAME)
         .fallbackToDestructiveMigration()
         .build()
 
@@ -53,5 +57,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideApplicationScope() = CoroutineScope(SupervisorJob())
+
+    @Provides
+    fun provideOmp(remoteMovieDataSource: RemoteMovieDataSource,
+                   localMovieDataSource: LocalMovieDataSource,
+                   database: MovieDatabase) : MovieRepository {
+        return MovieRepositoryImpl( remoteMovieDataSource,localMovieDataSource,database)
+    }
 
 }
