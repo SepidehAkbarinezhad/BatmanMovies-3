@@ -10,6 +10,8 @@ import com.example.batmanmovies.data.data.MovieDatabase
 import com.example.batmanmovies.data.entity.MovieData
 import com.example.batmanmovies.getOrAwaitValue
 import com.google.common.truth.Truth.assertThat
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -17,24 +19,28 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import javax.inject.Inject
+import javax.inject.Named
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
 class MovieDaoTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
-    private lateinit var movieDatabase: MovieDatabase
+    @Inject
+    @Named("test_db")
+    lateinit var movieDatabase: MovieDatabase
     private lateinit var movieDao: MovieDao
 
     @Before
     fun setup() {
-        movieDatabase = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),
-            MovieDatabase::class.java
-        ).allowMainThreadQueries().build()
 
+        hiltRule.inject()
         movieDao = movieDatabase.movieDao()
     }
 
