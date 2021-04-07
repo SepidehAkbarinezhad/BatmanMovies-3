@@ -11,37 +11,18 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.scopes.ActivityScoped
+import javax.inject.Named
 import javax.inject.Qualifier
 
 @Module
 @InstallIn(ActivityComponent::class)
 abstract class ActivityModule {
 
-    @MovieRepoImpl
+    @Named("MovieRepoImpl")
     @ActivityScoped
     @Binds
     abstract fun bindMovieRepoImpl(movieRepoImpl: MovieRepositoryImpl): MovieRepository
 
 
-//    @RemoteMovieData
-//    @ActivityScoped
-//    @Binds
-//    abstract fun bindRemoteMovieSource(remoteMovieDataSource: RemoteMovieDataSource): RemoteMovieRepository
-//
-//    @LocalMovieData
-//    @ActivityScoped
-//    @Binds
-//    abstract fun bindLocalMovieSource(localMovieDataSource: LocalMovieDataSource): MovieCache
 }
 
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class MovieRepoImpl
-
-//@Retention(AnnotationRetention.RUNTIME)
-//@Qualifier
-//annotation class RemoteMovieData
-//
-//@Retention(AnnotationRetention.RUNTIME)
-//@Qualifier
-//annotation class LocalMovieData
