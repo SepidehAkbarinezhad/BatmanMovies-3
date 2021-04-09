@@ -7,18 +7,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.RequestManager
 import com.example.batmanmovies.databinding.MovieItemBinding
 import com.example.batmanmovies.presentation.entity.MovieEntity
+import javax.inject.Inject
 
-class MovieListAdapter :
+class MovieListAdapter @Inject constructor(private val glide: RequestManager):
     ListAdapter<MovieEntity, MovieListAdapter.MyHolder>(SearchCallBack()) {
 
-    class MyHolder(val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    private var onItemClickListener: ((MovieEntity) -> Unit)? = null
+    fun setOnItemClickListener(listener: (MovieEntity) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    inner class MyHolder(private val binding: MovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: MovieEntity) {
             binding.apply {
-                Glide.with(itemView)
-                    .load(item.poster)
+                glide.load(item.poster)
                     .into(imgMoviePoster)
                 txvMovieTitle.text = item.title
                 txvMovieYear.text = item.year
@@ -35,6 +41,11 @@ class MovieListAdapter :
     override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder.apply {
             bind(getItem(position))
+            itemView.setOnClickListener {
+                onItemClickListener?.let { click ->
+                    click(getItem(position))
+                }
+            }
         }
     }
 

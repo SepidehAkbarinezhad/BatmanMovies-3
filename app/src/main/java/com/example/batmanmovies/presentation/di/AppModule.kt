@@ -1,7 +1,11 @@
 package com.example.batmanmovies.presentation.di
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.batmanmovies.R
 import com.example.batmanmovies.data.data.MovieDatabase
 import com.example.batmanmovies.data.dataSource.MovieRepositoryImpl
 import com.example.batmanmovies.data.dataSource.movie.LocalMovieDataSource
@@ -14,6 +18,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -60,10 +65,22 @@ object AppModule {
     fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 
     @Provides
-    fun provideOmp(remoteMovieDataSource: RemoteMovieDataSource,
-                   localMovieDataSource: LocalMovieDataSource,
-                   database: MovieDatabase) : MovieRepository {
-        return MovieRepositoryImpl( remoteMovieDataSource,localMovieDataSource,database)
+    fun provideOmp(
+        remoteMovieDataSource: RemoteMovieDataSource,
+        localMovieDataSource: LocalMovieDataSource,
+        database: MovieDatabase
+    ): MovieRepository {
+        return MovieRepositoryImpl(remoteMovieDataSource, localMovieDataSource, database)
     }
+
+    @Singleton
+    @Provides
+    fun provideGlideInstance(
+        @ApplicationContext context: Context
+    ) = Glide.with(context).setDefaultRequestOptions(
+        RequestOptions()
+            .placeholder(R.drawable.batman)
+            .error(R.drawable.batman)
+    )
 
 }

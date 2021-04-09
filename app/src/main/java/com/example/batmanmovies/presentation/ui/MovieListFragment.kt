@@ -17,6 +17,7 @@ import com.example.batmanmovies.databinding.FragmentMovieListBinding
 import com.example.batmanmovies.utill.Constant.TAG
 import com.example.batmanmovies.utill.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
@@ -24,6 +25,9 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     lateinit var movieListBinding: FragmentMovieListBinding
     private val viewModel: MovieListViewModel by viewModels()
     private lateinit var customeToolbar: CustomToolbar
+
+    @Inject
+    lateinit var moviesAdapter : MovieListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -35,7 +39,8 @@ class MovieListFragment : Fragment(R.layout.fragment_movie_list) {
     private fun bind(view: View){
         customeToolbar.setToolbarTitle("batman movies")
         movieListBinding = FragmentMovieListBinding.bind(view)
-        val moviesAdapter = MovieListAdapter()
+
+
         movieListBinding.apply {
             rcvMoviesList.adapter = moviesAdapter
         }
