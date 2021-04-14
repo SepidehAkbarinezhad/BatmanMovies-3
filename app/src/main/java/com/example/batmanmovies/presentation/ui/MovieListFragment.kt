@@ -18,35 +18,32 @@ import com.example.batmanmovies.databinding.FragmentMovieListBinding
 import com.example.batmanmovies.utill.Constant.TAG
 import com.example.batmanmovies.utill.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_movie_list.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MovieListFragment : BaseFragment(R.layout.fragment_movie_list) {
+class MovieListFragment @Inject constructor(private val movieListAdapter: MovieListAdapter) :
+    BaseFragment(R.layout.fragment_movie_list) {
 
     lateinit var movieListBinding: FragmentMovieListBinding
     private val viewModel: MovieListViewModel by viewModels()
 
 
-    @Inject
-    lateinit var moviesAdapter: MovieListAdapter
-
-
     override fun bind(view: View) {
         super.bind(view)
+
         customToolbar.setToolbarTitle("batman movies")
         movieListBinding = FragmentMovieListBinding.bind(view)
 
-
         movieListBinding.apply {
-            rcvMoviesList.adapter = moviesAdapter
+            rcvMoviesList.adapter = movieListAdapter
         }
-
-        moviesAdapter.setOnItemClickListener {
+        movieListAdapter.setOnItemClickListener {
             findNavController().navigate(MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment())
         }
         viewModel.movieList.observe(viewLifecycleOwner, Observer { result ->
             result?.let {
-                moviesAdapter.submitList(it.data)
+                movieListAdapter.submitList(it.data)
 
                 movieListBinding.apply {
                     progress.isVisible = it is Resource.Loading && it.data.isNullOrEmpty()

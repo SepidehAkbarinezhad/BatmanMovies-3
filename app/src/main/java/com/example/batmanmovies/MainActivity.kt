@@ -2,21 +2,26 @@ package com.example.batmanmovies
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.solver.widgets.analyzer.Dependency
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.batmanmovies.databinding.ActivityMainBinding
 import com.example.batmanmovies.presentation.ui.BaseFragment
+import com.example.batmanmovies.presentation.ui.CustomFragmentFactory
 import com.example.batmanmovies.presentation.ui.MovieListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() ,BaseFragment.CustomToolbar {
+class MainActivity : AppCompatActivity(), BaseFragment.CustomToolbar {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
