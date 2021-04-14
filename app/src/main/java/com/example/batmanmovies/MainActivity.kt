@@ -7,12 +7,13 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.batmanmovies.databinding.ActivityMainBinding
+import com.example.batmanmovies.presentation.ui.BaseFragment
 import com.example.batmanmovies.presentation.ui.MovieListFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() , MovieListFragment.CustomToolbar {
+class MainActivity : AppCompatActivity() ,BaseFragment.CustomToolbar {
 
     lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
